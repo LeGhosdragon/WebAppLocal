@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Position Example</title>
+    <style>
+        body {
+            height: 100vh; /* Full height of the viewport */
+            display: flex; /* Use Flexbox for layout */
+            flex-direction: column; /* Stack items vertically */
+            justify-content: space-between; /* Space items evenly */
+            align-items: center; /* Center items horizontally */
+        }
+
+        button {
+            /*width: 33.33%; /* Set button width to one-third of the screen */
+            padding: 10px 20px; /* Padding for button */
+            font-size: 16px; /* Font size */
+            margin-top: calc(66.67vh); /* Push button down to two-thirds of the screen height */
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <button id="settingsButton">SETTINGS</button> <!-- Button text is SETTINGS -->
+    </main>
+</body>
+</html>

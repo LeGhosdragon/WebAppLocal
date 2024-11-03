@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RicochetRobot:)</title>
+    <style>
+        body {
+            height: 100vh; /* Full height of the viewport */
+            display: flex; /* Use Flexbox for layout */
+            justify-content: center; /* Center items horizontally */
+            align-items: center; /* Center items vertically */
+            flex-direction: column; /* Stack items vertically */
+            transition: background-color 0.5s; /* Smooth background color transition */
+            background-color: dimgrey; /* Set background color to dimgrey initially */
+            overflow: hidden; /* Hide scrollbars */
+            position: relative; /* Make body a positioning context */
+        }
+
+        .checkbox-container {
+            display: flex; /* Use Flexbox for checkbox alignment */
+            flex-direction: column; /* Stack checkboxes vertically */
+            align-items: flex-start; /* Align checkboxes to the start */
+            opacity: 0; /* Start hidden */
+            pointer-events: none; /* Prevent interaction */
+            transition: opacity 0.5s; /* Fade in transition */
+        }
+
+        label {
+            font-size: 42px; /* Font size for checkbox labels */
+            margin-bottom: 10px; /* Space between checkboxes */
+            display: flex; /* Use flexbox for better alignment */
+            align-items: center; /* Align checkbox and label vertically */
+            font-weight: bold; /* Make the label text bold */
+            color: lightgrey; /* Change label text color to light grey */
+        }
+
+        /* Custom styles for checkboxes based on their names */
+        .big-checkbox {
+            width: 100px; /* Bigger size for specific checkboxes */
+            height: 100px; /* Bigger size for specific checkboxes */
+            margin-bottom: 20px; /* Space below the big checkbox */
+        }
+
+        .medium-checkbox {
+            width: 50px; /* Medium size for specific checkboxes */
+            height: 50px; /* Medium size for specific checkboxes */
+            margin-bottom: 10px; /* Space below the medium checkbox */
+        }
+
+        /* Styles for the Return button */
+        #returnButton {
+            font-size: 24px; /* Font size for button text */
+            margin-bottom: 20px; /* Space below the button */
+            padding: 10px 20px; /* Padding for button */
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        /* Styles for the Cursed Settings button */
+        #cursedSettingsButton {
+            font-size: 24px; /* Font size for button text */
+            padding: 10px 20px; /* Padding for button */
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        /* Styles for the PLAY button */
+        #playButton {
+            font-size: 48px; /* Increase font size for the button */
+            margin-top: 20px; /* Space above the button */
+            margin-bottom: 70px; /* Space below the button */
+            padding: 45px 90px; /* Increase padding for larger button */
+            cursor: pointer; /* Change cursor to pointer */
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth background color transition */
+        }
+
+        /* Change background color on hover */
+        #playButton:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        /* Styles for the Toggle Background button */
+        #greyBackgroundButton {
+            font-size: 24px; /* Font size for button text */
+            padding: 10px 20px; /* Padding for button */
+            margin-top: 20px; /* Space above the button */
+            background-color: white; /* Light grey background when activated */
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        /* Styles for the X button */
+        #reloadButton {
+            position: absolute; /* Position relative to body */
+            top: 20px; /* Distance from the top */
+            right: 20px; /* Distance from the right */
+            font-size: 24px; /* Font size for button */
+            padding: 5px 10px; /* Padding for button */
+            cursor: pointer; /* Change cursor to pointer */
+            background-color: transparent; /* Transparent background */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth background color transition */
+        }
+
+        /* Change background color on hover */
+        #reloadButton:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Light background on hover */
+        }
+    </style>
+</head>
+<body>
+    <button id="reloadButton">X</button> <!-- Reload button -->
+
+    <div class="checkbox-container" id="checkboxContainer">
+        <!-- Return button -->
+        <button id="returnButton">Return</button>
+        <label><input type="checkbox" id="bigCheckbox" name="bigOption"> All Powers</label>
+        <label><input type="checkbox" name="mediumOption"> Medium Blue can teleport</label>
+        <label><input type="checkbox" name="mediumOption"> Green can make a hologram</label>
+        <label><input type="checkbox" name="mediumOption"> Red can grab other robots</label>
+        <label><input type="checkbox" name="mediumOption"> Medium Yellow can go through one wall</label>
+        <label><input type="checkbox" name="mediumOption"> Grey goes through every wall</label>
+        <button id="greyBackgroundButton">Toggle Background Color</button>
+    </div>
+    <button id="playButton">PLAY</button> <!-- Place the PLAY button here, outside of the checkbox container -->
+    <button id="cursedSettingsButton">Cursed Settings</button> <!-- Cursed Settings button below the PLAY button -->
+
+    <script>
+        // Select the checkbox container and buttons
+        const checkboxContainer = document.getElementById('checkboxContainer');
+        const returnButton = document.getElementById('returnButton');
+        const cursedSettingsButton = document.getElementById('cursedSettingsButton');
+        const greyBackgroundButton = document.getElementById('greyBackgroundButton');
+        const playButton = document.getElementById('playButton'); // Select the PLAY button
+        const reloadButton = document.getElementById('reloadButton'); // Select the reload button
+
+        // Set initial background color
+        let isGreyBackground = true; // Track the state of the background color
+        document.body.style.backgroundColor = 'rgb(47,44,44)'; // Set the background color to dimgrey initially
+
+        // Initially hide the checkboxes and return button
+        checkboxContainer.style.display = 'none'; // Hide checkboxes
+
+        // Add an event listener to the Cursed Settings button
+        cursedSettingsButton.addEventListener('click', () => {
+            // Show the checkboxes and return button
+            checkboxContainer.style.display = 'flex'; // Show the checkboxes
+            setTimeout(() => {
+                checkboxContainer.style.opacity = 1; // Make visible
+                checkboxContainer.style.pointerEvents = 'auto'; // Enable interaction
+            }, 10); // Delay to ensure display property takes effect
+            cursedSettingsButton.style.display = 'none'; // Hide Cursed Settings button
+            playButton.style.display = 'none'; // Hide PLAY button
+        });
+
+        // Add an event listener to the Return button
+        returnButton.addEventListener('click', () => {
+            // Hide the checkboxes and return button
+            checkboxContainer.style.opacity = 0; // Fade out
+            checkboxContainer.style.pointerEvents = 'none'; // Prevent interaction
+            setTimeout(() => {
+                checkboxContainer.style.display = 'none'; // Hide after fade out
+                cursedSettingsButton.style.display = 'block'; // Show Cursed Settings button
+                playButton.style.display = 'block'; // Show PLAY button when returning
+            }, 500); // Match the fade out duration
+        });
+
+        // Add an event listener to the PLAY button
+        playButton.addEventListener('click', () => {
+            // Hide both the Cursed Settings and PLAY buttons
+            cursedSettingsButton.style.display = 'none'; // Hide Cursed Settings button
+            playButton.style.display = 'none'; // Hide PLAY button
+            // Trigger your function here (currently empty)adywyuwyagdysgdayuygfygfygfdayaiffaiafydsiaydfsiyfdyafdssyudyfasidygfiauysdgfuaysdgfayudfgadfuyasgydfgausydgfayudsgaysf
+        });
+
+        // Toggle background color when the button is clicked
+        greyBackgroundButton.addEventListener('click', () => {
+            // Toggle the background color between dimgrey and white
+            isGreyBackground = !isGreyBackground; // Toggle state
+            document.body.style.backgroundColor = isGreyBackground ? 'rgb(47,44,44)' : 'white'; // Apply background color
+            
+            // Change the label text color based on the background color
+            const labels = document.querySelectorAll('label');
+            labels.forEach(label => {
+                label.style.color = isGreyBackground ? 'lightgrey' : 'black'; // Set label color
+            });
+        });
+
+        // Select all checkboxes
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // Loop through checkboxes and assign classes based on their names
+        checkboxes.forEach(checkbox => {
+            if (checkbox.name.includes("bigOption")) {
+                checkbox.classList.add("big-checkbox");
+            } else if (checkbox.name.includes("mediumOption")) {
+                checkbox.classList.add("medium-checkbox");
+            }
+        });
+
+        // Select the big checkbox and all medium checkboxes
+        const bigCheckbox = document.getElementById('bigCheckbox');
+        const mediumCheckboxes = document.querySelectorAll('input[name="mediumOption"]');
+
+        // Add an event listener to the big checkbox
+        bigCheckbox.addEventListener('change', () => {
+            mediumCheckboxes.forEach(checkbox => {
+                checkbox.checked = bigCheckbox.checked; // Set medium checkboxes based on big checkbox state
+            });
+        });
+
+        // Hide the checkbox container initially
+        checkboxContainer.style.opacity = 0; // Set opacity to 0 for fading effect
+
+        // Add an event listener to the reload button
+        reloadButton.addEventListener('click', () => {
+            location.reload(); // Reload the page
+        });
+    </script>
+</body>
+</html>
