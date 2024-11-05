@@ -4285,6 +4285,26 @@
             return fullMap;
         }
 
+        class MapGen
+        {
+
+            mapOrder;
+            objectiveOrder; 
+            constructor()
+            {
+                this.objectiveOrder = pickMapObjective();
+                this.mapOrder = pickMapGroup();
+            }
+            //first map has 5 objctives and minimum 12 walls, with at least 5 pockets where objectives can sit 
+            //maps 2 to 4 have 8 to 12 walls and at least 4 pockets
+            //map order is so that the first map doesnt always has five objectives
+            //objOrder if so that the objectives are randomized
+            //each 2 piece wall cant be connected except by a single overlapping wall and if so, no other walls can be close, ie at least a square dist away
+            //there cant be two walls that follow each other  like so |___| it needs to be |_  _|
+            //no walls can be |_ to the middle wall it can only be same sense (to avoid useless pockets)
+
+        }
+
         
     </script>
 </body>
