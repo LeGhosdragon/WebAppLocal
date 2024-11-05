@@ -2590,8 +2590,7 @@
             {
                 document.getElementById("powerOptionYellow").style.backgroundColor = 'lightgray';
             }
-            for(i=1;i<robotMap.length;i++)
-            {robotMap[i].pow = false;}
+            for(i=1;i<robotMap.length;i++){if(robotMap[i].color != "LightGreeen"){robotMap[i].pow = false;}}
             robotMap[4].pow = true;
             return [robotObject.row, robotObject.col];
         }
@@ -2923,7 +2922,7 @@
                 verifyDistNormal(tempDir);
             }
             insureRobots();
-            if(smallest > 0)
+            if(smallest > 0 && tempDir == direction)
             {
                 uptickMovesDisplay();
             }
