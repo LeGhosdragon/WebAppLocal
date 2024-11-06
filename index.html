@@ -776,6 +776,7 @@
                     }
                     this.objective = objective;
                     this.hasRobot = false;
+                    this.cornerPlaceable = true;
                 }
                 setL(bool) {
                     this.L = bool;           
@@ -792,6 +793,18 @@
                 setIsRobot(bool)
                 {
                    this.hasRobot = bool;
+                }
+                setCornerPlaceable(bool)
+                {
+                    this.cornerPlaceable = bool;
+                }
+                setBouncerColor(color)
+                {
+                    this.bouncerColor = color; 
+                }
+                setBouncerState(state)
+                {   
+                    this.bouncerState = state;
                 }
             }
             class Robot {
@@ -847,6 +860,40 @@
                     return this.color;
                 }
             }
+            class wallType
+            { // 0:_| 1:|_  2:|- 3:-|
+                constructor(state)
+                {
+                    this.state = state;
+                    if(state == 0)
+                    {
+                        this.D = 1;
+                        this.R = 1;
+                        this.U = 0;
+                        this.L = 0;
+                    }else if(state == 1)
+                    {
+                        this.L = 1;
+                        this.D = 1;
+                        this.U = 0;
+                        this.R = 0;
+                    }else if(state == 2)
+                    {
+                        this.U = 1;
+                        this.L = 1;
+                        this.D = 0;
+                        this.R = 0;
+                    }else if(state == 3)
+                    {
+                        this.U = 1;
+                        this.R = 1;
+                        this.L = 0;
+                        this.D = 0;
+                    }
+                    this.box = [this.U, this.D, this.L, this.R];
+                }
+            }
+
         const obj = document.createElement('img'); 
         redG = false;
         redY = false;
@@ -864,6 +911,7 @@
         mapObjectiveRound = 0;
         grappledRobots = [];
         currentObjective = [];
+        mapMakingObj = pickMapObjective();
         midObj = [];
         mapHider = [];
         moveHistory = [];
@@ -938,7 +986,7 @@
         [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,1,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,1,2,1,1,18],[0,0,0,0,2,1,1,18]],
         [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,1,1,2,1,1,15],[1,1,0,0,2,1,1,2],[0,0,0,0,2,1,1,18]],
         [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,1,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18]],
-        [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,0,3,1,18]],
+        [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,0,1,3,18]],
         [[1,0,1,0,2,1,1,18],[1,0,0,1,2,1,1,12],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18]],
         [[1,0,0,1,2,1,1,18],[0,1,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,1,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,1,2,1,1,18]],
         [[1,1,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,1,1,0,2,1,1,6],[1,0,0,0,2,1,1,18],[0,0,1,0,2,1,1,18],[1,1,0,0,2,1,1,18]]
@@ -1027,7 +1075,8 @@
         bigMap = [];
         robotMap = [];
         tempRobotPos = [];
-        bigMap = makeFullMap();
+        //bigMap = makeFullMap();
+        bigMap = makeGenFullMap();
         moves = 0;
         const numRows = 16; // Number of rows
         const numCols = 16; // Number of columns
@@ -1839,7 +1888,7 @@
                         {
                             return [t, robotObject.col];
                         }
-                        else if(i + 1 != 16)
+                        else if(t != 15)
                         {
                             if(bigMap[t + 1][robotObject.col].hasRobot)
                             {return [t, robotObject.col];}
@@ -1901,7 +1950,7 @@
                         {
                             return [robotObject.row, t];
                         }
-                        else if(i + 1 != 16)
+                        else if(t != 15)
                         {
                             if(bigMap[robotObject.row][t + 1].hasRobot)
                             {return [robotObject.row, t];}
@@ -3720,12 +3769,11 @@
             rememberScreen();
             if(greyPower)
             {
-                robotMap[0].setPow(true);///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                robotMap[0].setPow(true);
             }
             midCover();
             currentObjective = pickMapObjective();
             triggerNextObjective();
-            // Trigger your function here (currently empty)adywyuwyagdysgdayuygfygfygfdayaiffaiafydsiaydfsiyfdyafdssyudyfasidygfiauysdgfuaysdgfayudfgadfuyasgydfgausydgfayudsgaysf
         });
         endRound.addEventListener('click', () => {
             if(pointGiven || mapRound == 0)
@@ -4161,7 +4209,7 @@
             for (let i = 0; i < finalArray.length; i++) {
                 tileObjectsArray[i] = [];
                 for (let j = 0; j < finalArray[i].length; j++) {
-                    const [L, U, R, D, bouncerState, , bouncerColor, objective] = finalArray[i][j];
+                    const [L, U, R, D, bouncerState,p ,bouncerColor, objective] = finalArray[i][j];
                     tileObjectsArray[i][j] = new Tile(L, U, R, D, bouncerState, state, bouncerColor, objective);
                 }
             }
@@ -4190,10 +4238,10 @@
 
             return pickedNumbers; // Return the array of picked numbers
         }
-        function pickMapGroup() {
+        function pickMapGroup(num) {
             const pickedNumbers = [];
             
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < num; i++) {
                 // Generate a random number between 1 and 4 (inclusive)
                 const randomNumber = Math.floor(Math.random() * 4) + 1;
                 pickedNumbers.push(randomNumber); // Add the random number to the array
@@ -4226,7 +4274,7 @@
         function makeFullMap()
         {
             state = pickMapState();
-            num = pickMapGroup();
+            num = pickMapGroup(4);
             map1 = rotateArrayState(tileMaps[state[0]-1][num[0]-1],1);
             map2 = rotateArrayState(tileMaps[state[1]-1][num[1]-1],2);
             map3 = rotateArrayState(tileMaps[state[2]-1][num[2]-1],3);
@@ -4284,24 +4332,304 @@
             return fullMap;
         }
 
-        class MapGen
+
+        function makeBaseMap()
         {
+            mapNum = [[[1,1,0,0,2,1,1,18],[0,1,0,0,2,1,1,18],[0,1,0,0,2,1,1,18],[0,1,0,0,2,1,1,18],[0,1,0,0,2,1,1,18],[0,1,0,0,2,1,1,18],[0,1,0,0,2,1,1,18],[0,1,0,0,2,1,1,18]],
+            [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18]],
+            [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18]],
+            [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18]],
+            [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18]],
+            [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18]],
+            [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,1,2,1,1,18]],
+            [[1,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,0,0,2,1,1,18],[0,0,1,0,2,1,1,18],[1,1,0,0,2,1,1,18]]];
+            // const size = mapNum.length;
+            // finalArray = mapNum;
 
-            mapOrder;
-            objectiveOrder; 
-            constructor()
+            // Create an array of Tile objects based on the final array
+            // let tileObjectsArray = [];
+            // for (let i = 0; i < finalArray.length; i++) {
+            //     tileObjectsArray[i] = [];
+            //     for (let j = 0; j < finalArray[i].length; j++) {
+            //         const [L, U, R, D, bouncerState, , bouncerColor, objective] = finalArray[i][j];
+            //         tileObjectsArray[i][j] = new Tile(L, U, R, D, bouncerState, 1, bouncerColor, objective);
+            //     }
+            // }
+            
+            return mapNum;
+
+        }
+
+        //this function makes a list of all valid tiles a certain wallType can be on
+        function getTileMapValidities(currentTileMap, wallType, code)
+        {
+            let validTileBox = [];
+            for(i = 1; i < currentTileMap.length - 1; i++)
             {
-                this.objectiveOrder = pickMapObjective();
-                this.mapOrder = pickMapGroup();
+                for(j = 1; j < currentTileMap.length - 1; j++)
+                {
+                    if(code == 0)
+                    {
+                        if(wallType.state == 0)
+                        {
+                            if(checkDown([i,j], currentTileMap) && checkRight([i,j], currentTileMap))
+                            {
+                                validTileBox[validTileBox.length] = [i, j];
+                            }
+                        }
+                        else if(wallType.state == 1)
+                        {
+                            if(checkDown([i,j], currentTileMap) && checkLeft([i,j], currentTileMap))
+                            {
+                                validTileBox[validTileBox.length] = [i, j];
+                            }
+                        }
+                        else if(wallType.state == 2)
+                        {
+                            if(checkUp([i,j], currentTileMap) && checkLeft([i,j], currentTileMap))
+                            {
+                                validTileBox[validTileBox.length] = [i, j];
+                            }
+                        }
+                        else
+                        {
+                            if(checkUp([i,j], currentTileMap) && checkRight([i,j], currentTileMap))
+                            {
+                                validTileBox[validTileBox.length] = [i, j];
+                            }
+                        }
+                    }
+                    else if(code == 1)
+                    {
+                        if(!currentTileMap[i][j][1] && !currentTileMap[i][j][3] && !currentTileMap[i][j][0] && !currentTileMap[i][j][2])   
+                        {
+                            validTileBox[validTileBox.length] = [i, j];
+                        }
+                    }
+                }
             }
-            //first map has 5 objctives and minimum 12 walls, with at least 5 pockets where objectives can sit 
-            //maps 2 to 4 have 8 to 12 walls and at least 4 pockets
-            //map order is so that the first map doesnt always has five objectives
-            //objOrder if so that the objectives are randomized
-            //each 2 piece wall cant be connected except by a single overlapping wall and if so, no other walls can be close, ie at least a square dist away
-            //there cant be two walls that follow each other  like so |___| it needs to be |_  _|
-            //no walls can be |_ to the middle wall it can only be same sense (to avoid useless pockets)
+            return validTileBox;
+        }
+        //tilePos : [row, col]
+        //tileMaps[][]
+        function checkUp(tilePos, tileMap)
+        {
+            if(tileMap[tilePos[0] - 1][tilePos[1]][0] || tileMap[tilePos[0] - 1][tilePos[1]][2])//the tile above left and right check
+            {
+                return false;
+            }
+            else if(tileMap[tilePos[0] - 1][tilePos[1] - 1][3]|| tileMap[tilePos[0] - 1][tilePos[1] + 1][3])
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        function checkDown(tilePos, tileMap)
+        {
+            if(tileMap[tilePos[0] + 1][tilePos[1]][0] || tileMap[tilePos[0] + 1][tilePos[1]][2])//the tile above left and riht check
+            {
+                return false;
+            }
+            else if(tileMap[tilePos[0] + 1][tilePos[1] - 1][3] || tileMap[tilePos[0] + 1][tilePos[1] + 1][3])
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        function checkLeft(tilePos, tileMap)
+        {
+            if(tileMap[tilePos[0]][tilePos[1] - 1][1] || tileMap[tilePos[0]][tilePos[1] - 1][3])//the tile left up and down check
+            {
+                return false;
+            }
+            else if(tileMap[tilePos[0] + 1][tilePos[1] - 1][2] || tileMap[tilePos[0] - 1][tilePos[1] - 1][2])
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        function checkRight(tilePos, tileMap)
+        {
+            if(tileMap[tilePos[0]][tilePos[1] + 1][1] || tileMap[tilePos[0]][tilePos[1] + 1][3])//the tile left up and down check
+            {
+                return false;
+            }
+            else if(tileMap[tilePos[0] + 1][tilePos[1] + 1][2] || tileMap[tilePos[0] - 1][tilePos[1] + 1][2])
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
+        function addSingleWalls(tileMap)
+        {
+            const pickedNumbers = [];
+
+            // Generate a random number between 0 and 8 (inclusive)
+            for (let index = 0; index < 2; index++) 
+            {
+                const randomNumber = Math.floor(Math.random() * 6) + 1;
+                pickedNumbers[pickedNumbers.length] = randomNumber; // Add the random number to the array
+            }
+            
+            tileMap[0][pickedNumbers[0]][2] = 1;
+            tileMap[0][pickedNumbers[0] + 1][0] = 1;
+            tileMap[pickedNumbers[1]][0][3] = 1;
+            tileMap[pickedNumbers[1] + 1][0][1] = 1;
+        }
+
+        function addCorneredWalls(tileMap, wallkinds)
+        {
+            // Generate a random number between 0 and 8 (inclusive)
+            for (let index = 0; index < wallkinds.length; index++) 
+            {
+                wall = new wallType(wallkinds[index]);
+                validTiles = getTileMapValidities(tileMap, wall, 0);
+                if(validTiles.length > 0)
+                {
+                    randomValidLocation = Math.floor(Math.random() * validTiles.length);
+                    randomValidLocation = validTiles[randomValidLocation];
+                    tileMap[randomValidLocation[0]][randomValidLocation[1]][0] = (wall.L);//TODO change the walls for 1 or 0 vals instead of bools so compatibility 
+                    tileMap[randomValidLocation[0]][randomValidLocation[1]][1] = (wall.U);
+                    tileMap[randomValidLocation[0]][randomValidLocation[1]][2] = (wall.R);
+                    tileMap[randomValidLocation[0]][randomValidLocation[1]][3] = (wall.D);
+                    if(wall.state - 1 == 0)
+                    {
+                        //if(randomValidLocation[0] + 1 < 8)
+                        {tileMap[randomValidLocation[0] + 1][randomValidLocation[1]][1] = 1;}
+                        //if(randomValidLocation[1] + 1 < 8)
+                        {tileMap[randomValidLocation[0]][randomValidLocation[1] - 1][2] = 1;}
+                    }else if(wall.state - 1 == 1)
+                    {
+                        //if(randomValidLocation[0] + 1 < 8)
+                        {tileMap[randomValidLocation[0] - 1][randomValidLocation[1]][3] = 1;} 
+                        tileMap[randomValidLocation[0]][randomValidLocation[1] - 1][2] = 1;
+                    }else if(wall.state - 1 == 2)
+                    {
+                        tileMap[randomValidLocation[0] - 1][randomValidLocation[1]][3] = 1;
+                        tileMap[randomValidLocation[0]][randomValidLocation[1] + 1][0] = 1;
+                    }else if(wall.state - 1 == 3)
+                    {
+                        tileMap[randomValidLocation[0] - 1][randomValidLocation[1]][3] = 1;
+                        //if(randomValidLocation[1] + 1 < 8)
+                        {tileMap[randomValidLocation[0]][randomValidLocation[1]][0] = 1;}
+                        
+                    }
+
+                    if(mapMakingObj.length > 0)
+                    {
+                        tileMap[randomValidLocation[0]][randomValidLocation[1]][7] == mapMakingObj.pop();
+                    }
+                    else
+                    {
+                        tileMap[randomValidLocation[0]][randomValidLocation[1]][7] == 18;
+                    }
+                }
+                else
+                {
+                    // if(wallKinds[index] <= 3 && wallKinds[index] >= 1)
+                    // {
+                    //     wallKinds[index]--;
+                    //     index--;
+                    // }
+                    // else
+                    // {
+                    //     wallKinds[index]++;//TODO this part isnt complete but ill see in the future
+                    // }
+                    // index--;
+                    console.log("There wasn't enough room to fit this type of piece in the generated map.");
+                }
+            }
+        }
+
+        function addBouncers(tileMap)
+        {
+            const numberOfBouncers = Math.floor(Math.random() * 2);
+            let color = [];
+            let bouncerState = [];
+            let validTiles = [];
+            for(i = 0; i < numberOfBouncers; i++)
+            {
+                color[color.length] = bColor(Math.floor(Math.random() * 4) + 1);
+                bouncerState[bouncerState.length] = Math.floor(Math.random() * 1);
+                validTiles = getTileMapValidities(tileMap, new wallType(1), 1);
+            }
+            if(validTiles.length > 0)
+            {
+                for(i = 0; i < numberOfBouncers; i++)
+                {
+                    randomValidLocation = Math.floor(Math.random() * validTiles.length);
+                    randomValidLocation = validTiles[randomValidLocation];
+                    tileMap[randomValidLocation[0], randomValidLocation[1]][6] = (color[i]);
+                    tileMap[randomValidLocation[0], randomValidLocation[1]][4] = (bouncerState[i]);
+                }
+            }
+        }
+
+        function bColor(num)
+        {
+            if(num == 1)
+            {
+                num = 'Blue';
+            } else if(num == 2)
+            {
+                num = 'Green';
+            }else if(num == 3)
+            {
+                num = 'Red';
+            } else if(num == 4)
+            {
+                num = 'Yellow';
+            }
+            return num;
+        }
+
+       
+        function makeGenFullMap()
+        {
+            mapOrder = pickMapState();
+            maps = [];
+            maps[0] = generateMap(5);
+            maps[1] = generateMap(4);
+            maps[2] = (generateMap(4));
+            maps[3] = (generateMap(4));
+
+            state = pickMapState();
+            map1 = rotateArrayState(maps[state[0]-1],1);
+            map2 = rotateArrayState(maps[state[1]-1],2);
+            map3 = rotateArrayState(maps[state[2]-1],3);
+            map4 = rotateArrayState(maps[state[3]-1],4);
+            return assembleMaps(map1,map2,map3,map4);
+            //return assembleMaps(maps[mapOrder[0] - 1], maps[mapOrder[1] - 1], maps[mapOrder[2] - 1], maps[mapOrder[3] - 1]);
+            return assembleMaps(generateMap(5), rotateOnce(generateMap(4)), generateMap(4), generateMap(4));
+        }
+        //first map has 5 objctives and minimum 12 walls, with at least 5 pockets where objectives can sit 
+        //maps 2 to 4 have 8 to 12 walls and at least 4 pockets
+        //map order is so that the first map doesnt always has five objectives
+        //objOrder if so that the objectives are randomized
+        //each 2 piece wall cant be connected except by a single overlapping wall and if so, no other walls can be close, ie at least a square dist away
+        //there cant be two walls that follow each other  like so |___| it needs to be |_  _|
+        //no walls can be |_ to the middle wall it can only be same sense (to avoid useless pockets)
+        function generateMap(wallsAmount)
+        {
+            baseMap = makeBaseMap(); 
+            wallKinds = pickMapGroup(wallsAmount);//but if it cant fit, try all wallTypes in order
+            addSingleWalls(baseMap);
+            addCorneredWalls(baseMap, wallKinds);
+            //addBouncers(baseMap);
+            return baseMap;
         }
 
         
