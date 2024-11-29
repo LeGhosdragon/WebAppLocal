@@ -1,10 +1,10 @@
 const CACHE_NAME = "game-cache-v1";
 const urlsToCache = [
   "/",
-  "/images",
-  "/index.html",
-  "/images/greenCircle.jpg",
-  "/images/greenCircle.jpg"
+  "/WebAppLocal/images",
+  "/WebAppLocal/index.html",
+  "/WebAppLocal/images/greenCircle.jpg",
+  "/WebAppLocal/images/greenCircle.jpg"
 ];
 
 self.addEventListener("install", event => {
