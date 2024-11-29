@@ -1,9 +1,9 @@
 const CACHE_NAME = "game-cache-v1";
 const urlsToCache = [
-  "/",
+  "/images",
   "/index.html",
-  "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png"
+  "/images/greenCircle.jpg",
+  "/images/greenCircle.jpg"
 ];
 
 self.addEventListener("install", event => {
