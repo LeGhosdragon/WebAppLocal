@@ -170,12 +170,12 @@
         #reloadButton {
             position: absolute; /* Position relative to body */
             top: 10px; /* Distance from the top */
-            right: 0px; /* Distance from the right */
+            left: 105%; /* Distance from the right */
             font-size: 24px; /* Font size for button */
             padding: 3px 3px; /* Padding for button */
             cursor: pointer; /* Change cursor to pointer */
             background-color: transparent; /* Transparent background */
-            color: white; /* White text color */
+            color: lightgray; /* White text color */
             border: none; /* Remove border */
             border-radius: 5px; /* Rounded corners */
             transition: background-color 0.3s; /* Smooth background color transition */
@@ -718,7 +718,7 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    margin-bottom: 5px; /* Optional: space between rows */
+    margin-bottom: 1px; /* Optional: space between rows */
     flex-shrink: 1; /* Allow shrinking to fit the container */
 }
 
@@ -759,7 +759,7 @@ button {
     </style>
 </head>
 <body>
-    <!--<button id="reloadButton">X</button>--> <!-- Reload button -->
+    
 
     <div class="checkbox-container" id="checkboxContainer">
         <!-- Return button -->
@@ -778,7 +778,7 @@ button {
         <label><input id="colorss" type="checkbox" name="mediumOption">COLORS</label>
 
 
-        <label><input id="alwaysMaxBouncerssssssss" type="checkbox" name="mediumOption"></label>
+        <!-- <label><input id="alwaysMaxBouncerssssssss" type="checkbox" name="mediumOption"></label>
         <label><input id="alwaysMaxBouncerssssssss1" type="checkbox" name="mediumOption"></label>
         <label><input id="alwaysMaxBouncerssssssss2" type="checkbox" name="mediumOption"></label>
         <label><input id="alwaysMaxBouncerssssss3ss" type="checkbox" name="mediumOption"></label>
@@ -792,7 +792,7 @@ button {
         <label><input id="baseMap2psesgss" type="checkbox" name="mediumOption"></label>
         <label><input id="baseMaps2esss" type="checkbox" name="mediumOption"></label>
         <label><input id="baseMadpsessds" type="checkbox" name="mediumOption"></label>
-        <label><input id="baseMapsdesddss" type="checkbox" name="mediumOption"></label>
+        <label><input id="baseMapsdesddss" type="checkbox" name="mediumOption"></label>-->
 
 
         <label><input id="alwaysMaxBouncerss" type="checkbox" name="mediumOption"> Always have max bouncers</label>
@@ -810,6 +810,7 @@ button {
         <button id="greyBackgroundButton">Dark Mode</button>
     </div>  
     <div class="game-container" id="gameContainer">
+        <button id="reloadButton">X</button>--> <!-- Reload button -->
         <!-- Row One & Row Two-->
         <button id="powerOptionBlue" class="button" name="bluePower">Blue teleport</button>     <!-- Row One & Row Two -->
         <button id="powerOptionGreen" class="button" name="greenPower">Green hologram</button>    <!-- Row One & Row Two -->
@@ -1934,7 +1935,7 @@ if (screen.orientation && screen.orientation.lock) {
             undefinedFunction('RightOption');
         }
         if (event.key === 'R' || event.key === 'r') {
-        location.reload();
+            location.reload();
         }
     });
     
@@ -4702,9 +4703,9 @@ if (screen.orientation && screen.orientation.lock) {
     checkboxContainer.style.opacity = 0; // Set opacity to 0 for fading effect
 
     // Add an event listener to the reload button
-    //reloadButton.addEventListener('click', () => {
-        //  location.reload(); // Reload the page
-    //});
+    reloadButton.addEventListener('click', () => {
+         location.reload(); // Reload the page
+    });
 
 
     function getCoordinatedTile(row, col)
