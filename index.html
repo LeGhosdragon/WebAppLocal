@@ -1325,16 +1325,16 @@ function makeMap() {
             Trig.className = 'Trig'; // Add a class for styling
             switch (color) {
                 case 'Blue':
-                Trig.src = '/images/blueTrig.jpg';
+                Trig.src = 'images/blueTrig.jpg';
                     break;
                 case 'Red':
-                    Trig.src = '/images/redTrig.jpg';
+                    Trig.src = 'images/redTrig.jpg';
                     break;
                 case 'Yellow':
-                Trig.src = '/images/yellowTrig.jpg';
+                Trig.src = 'images/yellowTrig.jpg';
                     break;
                 case 'Green':
-                Trig.src = '/images/greenTrig.jpg';
+                Trig.src = 'images/greenTrig.jpg';
                     break;
                 default:
                     console.error(`Unknown color: ${color}`);
@@ -1363,16 +1363,16 @@ function makeMap() {
             Sq.className = 'Sq'; // Add a class for styling
             switch (color) {
                 case 'Blue':
-                Sq.src = '/images/blueSq.jpg';
+                Sq.src = 'images/blueSq.jpg';
                     break;
                 case 'Red':
-                    Sq.src = '/images/redSq.jpg';
+                    Sq.src = 'images/redSq.jpg';
                     break;
                 case 'Yellow':
-                Sq.src = '/images/yellowSq.jpg';
+                Sq.src = 'images/yellowSq.jpg';
                     break;
                 case 'Green':
-                Sq.src = '/images/greenSq.jpg';
+                Sq.src = 'images/greenSq.jpg';
                     break;
                 default:
                     console.error(`Unknown color: ${color}`);
@@ -1401,16 +1401,16 @@ function makeMap() {
             Hex.className = 'Hex'; // Add a class for styling
             switch (color) {
                 case 'Blue':
-                Hex.src = '/images/blueHex.jpg';
+                Hex.src = 'images/blueHex.jpg';
                     break;
                 case 'Red':
-                    Hex.src = '/images/redHex.jpg';
+                    Hex.src = 'images/redHex.jpg';
                     break;
                 case 'Yellow':
-                Hex.src = '/images/yellowHex.jpg';
+                Hex.src = 'images/yellowHex.jpg';
                     break;
                 case 'Green':
-                Hex.src = '/images/greenHex.jpg';
+                Hex.src = 'images/greenHex.jpg';
                     break;
                 default:
                     console.error(`Unknown color: ${color}`);
@@ -1439,16 +1439,16 @@ function makeMap() {
             circle.className = 'circle'; // Add a class for styling
             switch (color) {
                 case 'Blue':
-                circle.src = '/images/blueCircle.jpg';
+                circle.src = 'images/blueCircle.jpg';
                     break;
                 case 'Red':
-                    circle.src = '/images/redCircle.jpg';
+                    circle.src = 'images/redCircle.jpg';
                     break;
                 case 'Yellow':
-                circle.src = '/images/yellowCircle.jpg';
+                circle.src = 'images/yellowCircle.jpg';
                     break;
                 case 'Green':
-                circle.src = '/images/greenCircle.jpg';
+                circle.src = 'images/greenCircle.jpg';
                     break;
                 default:
                     console.error(`Unknown color: ${color}`);
@@ -1475,7 +1475,7 @@ function makeMap() {
             // Create an image element for the robot
             const spiral = document.createElement('img');
             spiral.className = 'spiral'; // Add a class for styling
-            spiral.src = '/images/Rainbow.png'; // Replace with the actual path to your robot image
+            spiral.src = 'images/Rainbow.png'; // Replace with the actual path to your robot image
             spiral.alt = 'Robot'; // Add alt text for accessibility
             // Set the size of the robot image
             spiral.style.width = '5vh';
@@ -1573,22 +1573,22 @@ function makeMap() {
             // Set the robot image source based on the color
             switch (color) {
                 case 'Grey':
-                    robot.src = '/images/Grey.jpg'; 
+                    robot.src = 'images/Grey.jpg'; 
                     break;
                 case 'Blue':
-                    robot.src = '/images/Blue.jpg';
+                    robot.src = 'images/Blue.jpg';
                     break;
                 case 'Red':
-                    robot.src = '/images/Red.jpg';
+                    robot.src = 'images/Red.jpg';
                     break;
                 case 'Yellow':
-                    robot.src = '/images/Yellow.jpg';
+                    robot.src = 'images/Yellow.jpg';
                     break;
                 case 'Green':
-                    robot.src = '/images/Green.jpg';
+                    robot.src = 'images/Green.jpg';
                     break;
                 case 'LightGreeen':
-                    robot.src = '/images/LightGreeen.jpg';
+                    robot.src = 'images/LightGreeen.jpg';
                     break;
                 default:
                     console.error(`Unknown color: ${color}`);
@@ -4532,24 +4532,24 @@ function makeMap() {
         
             
 
-        obj.src = '/images/Rainbow.png'; // Replace with the actual path to your objective image
+        obj.src = 'images/Rainbow.png'; // Replace with the actual path to your objective image
 
-        if(currentObjective[mapObjectiveRound] == 1){obj.src = '/images/yellowTrig.jpg';}
-        if(currentObjective[mapObjectiveRound] == 9){obj.src = '/images/redTrig.jpg';}
-        if(currentObjective[mapObjectiveRound] == 6){obj.src = '/images/blueTrig.jpg';}
-        if(currentObjective[mapObjectiveRound] == 13){obj.src = '/images/greenTrig.jpg';}
-        if(currentObjective[mapObjectiveRound] == 2){obj.src = '/images/yellowSq.jpg';}
-        if(currentObjective[mapObjectiveRound] == 10){obj.src = '/images/redSq.jpg';}
-        if(currentObjective[mapObjectiveRound] == 8){obj.src = '/images/blueSq.jpg';}
-        if(currentObjective[mapObjectiveRound] == 16){obj.src = '/images/greenSq.jpg';}
-        if(currentObjective[mapObjectiveRound] == 3){obj.src = '/images/yellowHex.jpg';}
-        if(currentObjective[mapObjectiveRound] == 11){obj.src = '/images/redHex.jpg';}
-        if(currentObjective[mapObjectiveRound] == 7){obj.src = '/images/blueHex.jpg';}
-        if(currentObjective[mapObjectiveRound] == 15){obj.src = '/images/greenHex.jpg';}
-        if(currentObjective[mapObjectiveRound] == 4){obj.src = '/images/yellowCircle.jpg';}
-        if(currentObjective[mapObjectiveRound] == 12){obj.src = '/images/redCircle.jpg';}
-        if(currentObjective[mapObjectiveRound] == 5){obj.src = '/images/blueCircle.jpg';}
-        if(currentObjective[mapObjectiveRound] == 14){obj.src = '/images/greenCircle.jpg';}
+        if(currentObjective[mapObjectiveRound] == 1){obj.src = 'images/yellowTrig.jpg';}
+        if(currentObjective[mapObjectiveRound] == 9){obj.src = 'images/redTrig.jpg';}
+        if(currentObjective[mapObjectiveRound] == 6){obj.src = 'images/blueTrig.jpg';}
+        if(currentObjective[mapObjectiveRound] == 13){obj.src = 'images/greenTrig.jpg';}
+        if(currentObjective[mapObjectiveRound] == 2){obj.src = 'images/yellowSq.jpg';}
+        if(currentObjective[mapObjectiveRound] == 10){obj.src = 'images/redSq.jpg';}
+        if(currentObjective[mapObjectiveRound] == 8){obj.src = 'images/blueSq.jpg';}
+        if(currentObjective[mapObjectiveRound] == 16){obj.src = 'images/greenSq.jpg';}
+        if(currentObjective[mapObjectiveRound] == 3){obj.src = 'images/yellowHex.jpg';}
+        if(currentObjective[mapObjectiveRound] == 11){obj.src = 'images/redHex.jpg';}
+        if(currentObjective[mapObjectiveRound] == 7){obj.src = 'images/blueHex.jpg';}
+        if(currentObjective[mapObjectiveRound] == 15){obj.src = 'images/greenHex.jpg';}
+        if(currentObjective[mapObjectiveRound] == 4){obj.src = 'images/yellowCircle.jpg';}
+        if(currentObjective[mapObjectiveRound] == 12){obj.src = 'images/redCircle.jpg';}
+        if(currentObjective[mapObjectiveRound] == 5){obj.src = 'images/blueCircle.jpg';}
+        if(currentObjective[mapObjectiveRound] == 14){obj.src = 'images/greenCircle.jpg';}
         mapObjectiveRound++;
         obj.alt = 'obj';
         obj.style.width = '6%';
