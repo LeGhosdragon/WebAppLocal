@@ -1295,6 +1295,11 @@ if ('serviceWorker' in navigator)
         });
     });
 }
+if (screen.orientation && screen.orientation.lock) {
+  screen.orientation.lock('landscape').catch(err => {
+    console.error('Orientation lock failed:', err);
+  });
+}
 
     function addObjectives(row, col, tile)
     {
