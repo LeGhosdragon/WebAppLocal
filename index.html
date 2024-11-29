@@ -4147,7 +4147,8 @@ function makeMap() {
         setTimeout(() => {
             checkboxContainer.style.display = 'none'; // Hide after fade out
             cursedSettingsButton.style.display = 'block'; // Show Cursed Settings button
-            playButton.style.display = 'block'; // Show PLAY button when returning
+            playButton.style.display = 'block'; 
+            //getCoordinatedTile(5,10).style.backgroundColor = 'black';// Show PLAY button when returning
         }, 500); // Match the fade out duration
     });
 
@@ -4488,6 +4489,23 @@ function makeMap() {
 
     undoOption.addEventListener('click', () => {
         undo();
+        setincrement = 10;
+        time = 100;
+        a = 0;
+        b = 0;
+        getCoordinatedTile(5,10).style.backgroundColor = 'red';// Show PLAY button when returning
+        setTimeout(() => {
+            getCoordinatedTile(5,10).style.backgroundColor = 'lightred';// Show PLAY button when returning
+        }, 200);
+        setTimeout(() => {
+            getCoordinatedTile(5,10).style.backgroundColor = 'rose';// Show PLAY button when returning
+        }, 300);
+        setTimeout(() => {
+            getCoordinatedTile(5,10).style.backgroundColor = 'lightpink';// Show PLAY button when returning
+        }, 400);
+        setTimeout(() => {
+            getCoordinatedTile(5,10).style.backgroundColor = 'white';// Show PLAY button when returning
+        }, 500);
     });
 
     function unselectRobots()
