@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<link rel="manifest" href="/WebAppLocal/manifest.json">
+<meta name="theme-color" content="#000000">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -100,7 +102,7 @@
         }
 
         label {
-            font-size: 2vw; /* Font size for checkbox labels */
+            font-size: 1.9vw; /* Font size for checkbox labels */
             margin-bottom: 0.5vh; /* Space between checkboxes */
             display: flex; /* Use flexbox for better alignment */
             align-items: center; /* Align checkbox and label vertically */
@@ -168,12 +170,12 @@
         #reloadButton {
             position: absolute; /* Position relative to body */
             top: 10px; /* Distance from the top */
-            right: 0px; /* Distance from the right */
+            left: 100%; /* Distance from the left */
             font-size: 24px; /* Font size for button */
             padding: 3px 3px; /* Padding for button */
             cursor: pointer; /* Change cursor to pointer */
             background-color: transparent; /* Transparent background */
-            color: white; /* White text color */
+            color: lightgray; /* White text color */
             border: none; /* Remove border */
             border-radius: 5px; /* Rounded corners */
             transition: background-color 0.3s; /* Smooth background color transition */
@@ -716,7 +718,7 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    margin-bottom: 5px; /* Optional: space between rows */
+    margin-bottom: 1px; /* Optional: space between rows */
     flex-shrink: 1; /* Allow shrinking to fit the container */
 }
 
@@ -757,7 +759,7 @@ button {
     </style>
 </head>
 <body>
-    <!--<button id="reloadButton">X</button>--> <!-- Reload button -->
+    
 
     <div class="checkbox-container" id="checkboxContainer">
         <!-- Return button -->
@@ -776,7 +778,7 @@ button {
         <label><input id="colorss" type="checkbox" name="mediumOption">COLORS</label>
 
 
-        <label><input id="alwaysMaxBouncerssssssss" type="checkbox" name="mediumOption"></label>
+        <!-- <label><input id="alwaysMaxBouncerssssssss" type="checkbox" name="mediumOption"></label>
         <label><input id="alwaysMaxBouncerssssssss1" type="checkbox" name="mediumOption"></label>
         <label><input id="alwaysMaxBouncerssssssss2" type="checkbox" name="mediumOption"></label>
         <label><input id="alwaysMaxBouncerssssss3ss" type="checkbox" name="mediumOption"></label>
@@ -790,7 +792,7 @@ button {
         <label><input id="baseMap2psesgss" type="checkbox" name="mediumOption"></label>
         <label><input id="baseMaps2esss" type="checkbox" name="mediumOption"></label>
         <label><input id="baseMadpsessds" type="checkbox" name="mediumOption"></label>
-        <label><input id="baseMapsdesddss" type="checkbox" name="mediumOption"></label>
+        <label><input id="baseMapsdesddss" type="checkbox" name="mediumOption"></label>-->
 
 
         <label><input id="alwaysMaxBouncerss" type="checkbox" name="mediumOption"> Always have max bouncers</label>
@@ -808,6 +810,7 @@ button {
         <button id="greyBackgroundButton">Dark Mode</button>
     </div>  
     <div class="game-container" id="gameContainer">
+        <button id="reloadButton">X</button>--> <!-- Reload button -->
         <!-- Row One & Row Two-->
         <button id="powerOptionBlue" class="button" name="bluePower">Blue teleport</button>     <!-- Row One & Row Two -->
         <button id="powerOptionGreen" class="button" name="greenPower">Green hologram</button>    <!-- Row One & Row Two -->
@@ -823,9 +826,9 @@ button {
 
         <!-- Row Three & Row Four -->
         <span id="timerDisplay">01:00</span>  
-        <button id="startTimer">Start Timer</button> 
+        <button id="startTimer" style="font-size: 1.5vw" style = "font-weight: bold";>Start Timer</button> 
         <button id="endRound">End Round</button>     <!-- Row Three -->
-        <button id="resetTimer">Reset Timer</button>      <!-- Row Four -->
+        <button id="resetTimer" style="font-size: 1.5vw" style = "font-weight: bold">Reset Timer</button>      <!-- Row Four -->
 
         <!-- Row Five & Six -->
         <span id="movesLabel">Moves :</span> 
@@ -1283,6 +1286,22 @@ function makeMap() {
     // Log the array of tile positions after the map is created
     //console.log(tilePositions);
 }
+if ('serviceWorker' in navigator) 
+{
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/WebAppLocal/sw.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch(error => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+}
+if (screen.orientation && screen.orientation.lock) {
+  screen.orientation.lock('landscape').catch(err => {
+    console.error('Orientation lock failed:', err);
+  });
+}
 
     function addObjectives(row, col, tile)
     {
@@ -1533,7 +1552,7 @@ function makeMap() {
             diagonalLine.style.backgroundColor = color; // Use the dynamic color variable
             diagonalLine.style.width = '0.6vw'; // Set the line width (can adjust as needed)
             diagonalLine.style.height = '100%'; // Full height of the square
-            diagonalLine.style.border = '1px solid black'; // Add a thin black border
+            diagonalLine.style.border = '0.5px solid black'; // Add a thin black border
             diagonalLine.style.borderRadius = '50%'; // Ensure the div is circular
             // Position the line within the parent square (centered at the middle)
             diagonalLine.style.position = 'absolute';
@@ -1917,7 +1936,7 @@ function makeMap() {
             undefinedFunction('RightOption');
         }
         if (event.key === 'R' || event.key === 'r') {
-        location.reload();
+            location.reload();
         }
     });
     
@@ -3145,7 +3164,7 @@ function makeMap() {
                     allGood = false;
                 }
             }
-            //console.log("Is it allGood? : " + allGood);
+            console.log("Is it allGood? : " + allGood);
             if(allGood)
             {
                 moveHistory[moveHistory.length] = new move(0, 0, 0);
@@ -3172,7 +3191,7 @@ function makeMap() {
                     allGood = false;
                 }
             }
-            //console.log("Is it allGood? : " + allGood);
+            console.log("Is it allGood? : " + allGood);
             if(allGood)
             {
                 moveHistory[moveHistory.length] = new move(0, 0, 0);
@@ -3199,7 +3218,7 @@ function makeMap() {
                     allGood = false;
                 }
             }
-            //console.log("Is it allGood? : " + allGood);
+            console.log("Is it allGood? : " + allGood);
             if(allGood)
             {
                 moveHistory[moveHistory.length] = new move(0, 0, 0);
@@ -3226,7 +3245,7 @@ function makeMap() {
                     allGood = false;
                 }
             }
-            //console.log("Is it allGood? : " + allGood); 
+            console.log("Is it allGood? : " + allGood); 
             if(allGood)
             {
                 moveHistory[moveHistory.length] = new move(0, 0, 0);
@@ -3256,10 +3275,8 @@ function makeMap() {
         smallest = 60;
         tempDir = direction;
         moved = false;
-        
         for(i = 0; i < grappledRobots.length; i++)
         { 
-            if(colors){getCoordinatedTile(grappledRobots[i].row,grappledRobots[i].col).style.backgroundColor = grappledRobots[i].color;}
             bigMap[grappledRobots[i].row][grappledRobots[i].col].setIsRobot(false);
         }
         if(direction == 'UpOption')
@@ -3387,10 +3404,8 @@ function makeMap() {
                     if(direction == "RightOption")
                     {
                         getCoordinatedTile(grappledRobots[i].row, grappledRobots[i].col - p).style.backgroundColor = grappledRobots[i].color;
-                    }
-                    
+                    }   
                 }
-                
             }
         }
         if(tempDir != direction)
@@ -4526,23 +4541,23 @@ function makeMap() {
 
     undoOption.addEventListener('click', () => {
         undo();
-        setincrement = 10;
-        time = 100;
-        a = 0;
-        b = 0;
-        getCoordinatedTile(5,10).style.backgroundColor = 'red';// Show PLAY button when returning
-        setTimeout(() => {
-            getCoordinatedTile(5,10).style.backgroundColor = 'lightred';// Show PLAY button when returning
-        }, 200);
-        setTimeout(() => {
-            getCoordinatedTile(5,10).style.backgroundColor = 'rose';// Show PLAY button when returning
-        }, 300);
-        setTimeout(() => {
-            getCoordinatedTile(5,10).style.backgroundColor = 'lightpink';// Show PLAY button when returning
-        }, 400);
-        setTimeout(() => {
-            getCoordinatedTile(5,10).style.backgroundColor = 'white';// Show PLAY button when returning
-        }, 500);
+        // setincrement = 10;
+        // time = 100;
+        // a = 0;
+        // b = 0;
+        // getCoordinatedTile(5,10).style.backgroundColor = 'red';// Show PLAY button when returning
+        // setTimeout(() => {
+        //     getCoordinatedTile(5,10).style.backgroundColor = 'lightred';// Show PLAY button when returning
+        // }, 200);
+        // setTimeout(() => {
+        //     getCoordinatedTile(5,10).style.backgroundColor = 'rose';// Show PLAY button when returning
+        // }, 300);
+        // setTimeout(() => {
+        //     getCoordinatedTile(5,10).style.backgroundColor = 'lightpink';// Show PLAY button when returning
+        // }, 400);
+        // setTimeout(() => {
+        //     getCoordinatedTile(5,10).style.backgroundColor = 'white';// Show PLAY button when returning
+        // }, 500);
     });
 
     function unselectRobots()
@@ -4560,7 +4575,7 @@ function makeMap() {
         midCov.style.height = '11%';
         midCov.style.backgroundColor = 'black';
         midCov.style.position = 'absolute';
-        midCov.style.top = '41.5%';
+        midCov.style.top = '41%';
         midCov.style.left = '22%';
         document.body.appendChild(midCov);
     }
@@ -4594,7 +4609,7 @@ function makeMap() {
         obj.style.backgroundColor = 'black';
         obj.style.position = 'absolute';
         obj.style.top = '41%';
-        obj.style.left = '21.9%';
+        obj.style.left = '22%';
         midObj[0] = obj;
         document.body.appendChild(obj);
     }
@@ -4721,9 +4736,9 @@ function makeMap() {
     checkboxContainer.style.opacity = 0; // Set opacity to 0 for fading effect
 
     // Add an event listener to the reload button
-    //reloadButton.addEventListener('click', () => {
-        //  location.reload(); // Reload the page
-    //});
+    reloadButton.addEventListener('click', () => {
+         location.reload(); // Reload the page
+    });
 
 
     function getCoordinatedTile(row, col)
