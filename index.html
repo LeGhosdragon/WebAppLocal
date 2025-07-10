@@ -7,6 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RicochetRobot:)</title>
     <style>
+        *{
+            touch-action: manipulation;
+            user-select: none; /* standard syntax */
+            -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+            -moz-user-select: none; /* mozilla browsers */
+            -khtml-user-select: none; /* webkit (konqueror) browsers */
+            -ms-user-select: none; /* IE10+ */
+        }
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
         body {
             height: 100vh; /* Full height of the viewport */
             display: flex; /* Use Flexbox for layout */
@@ -17,6 +32,7 @@
             background-color: dimgrey; /* Set background color to dimgrey initially */
             overflow: hidden; /* Hide scrollbars */
             position: relative; /* Make body a positioning context */
+            
         }
 
         .checkbox-container {
@@ -855,10 +871,10 @@ button {
         </div>
 
         <!-- Player Display -->
-        <span id="p1">Sim1:</span> 
-        <span id="p2">Oli2:</span> 
-        <span id="p3">Rng3:</span> 
-        <span id="p4">Rng4:</span> 
+        <span id="p1">Sim:</span> 
+        <span id="p2">Oli:</span> 
+        <span id="p3">Rém:</span> 
+        <span id="p4">Sim:</span> 
         <!-- Row Nine & Ten -->
         <!--                    Reserved for Configurable player points                               -->
     </div>
@@ -4282,6 +4298,7 @@ if (screen.orientation && screen.orientation.lock) {
         triggerNextObjective();
     });
     endRound.addEventListener('click', () => {
+        resetCountdown();
         if(pointGiven || mapRound == 0)
         {
             resetCOLORS();
