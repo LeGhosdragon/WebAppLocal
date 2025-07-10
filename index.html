@@ -190,16 +190,16 @@
         /* Styles for the X button */
         #reloadButton {
             position: absolute; /* Position relative to body */
-            top: 10px; /* Distance from the top */
-            left: 100%; /* Distance from the left */
-            font-size: 24px; /* Font size for button */
+            right: 3%; /* Distance from the left */
+            font-size: 5vw; /* Font size for button */
             padding: 3px 3px; /* Padding for button */
             cursor: pointer; /* Change cursor to pointer */
             background-color: transparent; /* Transparent background */
-            color: lightgray; /* White text color */
+            color: red; /* White text color */
             border: none; /* Remove border */
             border-radius: 5px; /* Rounded corners */
             transition: background-color 0.3s; /* Smooth background color transition */
+            z-index: 10000;
         }        
         #powerOptionBlue {  
             position: absolute;
@@ -268,7 +268,7 @@
         #powerOptionYellow {  
             position: absolute;
             font-size: 2vw; /* Increase font size for the button */
-            top: 0%; /* Space above the button */
+            top: 10%; /* Space above the button */
             bottom: 80%;
             flex-wrap: wrap;
             left: 90%;
