@@ -8,7 +8,7 @@
     <title>RicochetRobot:)</title>
     <style>
         *{
-            touch-action: manipulation;
+            touch-action: none;
             user-select: none; /* standard syntax */
             -webkit-user-select: none; /* webkit (safari, chrome) browsers */
             -moz-user-select: none; /* mozilla browsers */
@@ -21,6 +21,12 @@
             -moz-user-drag: none;
             -o-user-drag: none;
             user-drag: none;
+        }
+        .lock-screen {
+            height: 100%;
+            overflow: hidden;
+            width: 100%;
+            position: fixed;
         }
         body {
             height: 100vh; /* Full height of the viewport */
@@ -774,7 +780,7 @@ button {
          
     </style>
 </head>
-<body>
+<body class="lock-screen">
     
 
     <div class="checkbox-container" id="checkboxContainer">
