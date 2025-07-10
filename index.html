@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RicochetRobot:)</title>
     <style>
         *{
@@ -20,12 +20,12 @@
             -khtml-user-drag: none;
             -moz-user-drag: none;
             -o-user-drag: none;
-            user-drag: none;
+            z-index: 1;
         }
         .lock-screen {
             height: 100%;
             overflow: hidden;
-            width: 100%;
+            width: 99%;
             position: fixed;
         }
         body {
@@ -832,7 +832,7 @@ button {
         <button id="greyBackgroundButton">Dark Mode</button>
     </div>  
     <div class="game-container" id="gameContainer">
-        <button id="reloadButton">X</button>--> <!-- Reload button -->
+        <button id="reloadButton">X</button> <!-- Reload button -->
         <!-- Row One & Row Two-->
         <button id="powerOptionBlue" class="button" name="bluePower">Blue teleport</button>     <!-- Row One & Row Two -->
         <button id="powerOptionGreen" class="button" name="greenPower">Green hologram</button>    <!-- Row One & Row Two -->
@@ -1282,6 +1282,8 @@ function makeMap() {
             // Position the squares based on row and column indices
             square.style.left = leftPosition;
             square.style.top = topPosition;
+            square.style.backgroundColor = "rgba(255,255,255,1)";
+            square.style.zIndex = 100;
 
             // Store the coordinate and position in the array
             tilePositions.push([row, col, leftPosition, topPosition]);
@@ -1348,14 +1350,14 @@ if (screen.orientation && screen.orientation.lock) {
     function changeBorderThickness(row, col, tile) {
         const index = row * numCols + col; // Calculate the index in the array
         const square = squares[index]; // Get the square from the array
-        if (tile.L){square.style.borderLeft = `${0.40}vw solid black`;}
+        if (tile.L){square.style.borderLeft = `${0.5}vmin solid black`;}
         else {square.style.borderLeft = `${0.15}vw solid ${squareBorderColor}`;}
-        if (tile.U){square.style.borderTop = `${0.7}vh solid black`;}
-        else {square.style.borderTop = `${0.3}vh solid ${squareBorderColor}`;}
-        if (tile.R){square.style.borderRight = `${0.35}vw solid black`;}
+        if (tile.U){square.style.borderTop = `${0.5}vmin solid black`;}
+        else {square.style.borderTop = `${0.15}vw  solid ${squareBorderColor}`;}
+        if (tile.R){square.style.borderRight = `${0.5}vmin solid black`;}
         else {square.style.borderRight = `${0.15}vw solid ${squareBorderColor}`;}
-        if (tile.D){square.style.borderBottom = `${0.7}vh solid black`;}
-        else {square.style.borderBottom = `${0.3}vh solid ${squareBorderColor}`;}
+        if (tile.D){square.style.borderBottom = `${0.8}vmin solid black`;}
+        else {square.style.borderBottom = `${0.15}vw  solid ${squareBorderColor}`;}
     }
     function drawTriangle(row, col, color, code) {
         const index = row * numCols + col; // Calculate the index in the array
@@ -1382,8 +1384,8 @@ if (screen.orientation && screen.orientation.lock) {
                     console.error(`Unknown color: ${color}`);
                     return; // Exit if the color is unknown
             }
-            Trig.style.width = '4vh';
-            Trig.style.height = '4vh';
+            Trig.style.width = '100%';
+            Trig.style.height = '100%';
             // Position the robot within the parent square (e.g., centered)
             Trig.style.position = 'absolute';
             Trig.style.top = '50%';
@@ -1420,8 +1422,8 @@ if (screen.orientation && screen.orientation.lock) {
                     console.error(`Unknown color: ${color}`);
                     return; // Exit if the color is unknown
             }
-            Sq.style.width = '4vh';
-            Sq.style.height = '4vh';
+            Sq.style.width = '100%';
+            Sq.style.height = '100%';
             // Position the robot within the parent square (e.g., centered)
             Sq.style.position = 'absolute';
             Sq.style.top = '50%';
@@ -1458,8 +1460,8 @@ if (screen.orientation && screen.orientation.lock) {
                     console.error(`Unknown color: ${color}`);
                     return; // Exit if the color is unknown
             }
-            Hex.style.width = '4vh';
-            Hex.style.height = '4vh';
+            Hex.style.width = '100%';
+            Hex.style.height = '100%';
             // Position the robot within the parent square (e.g., centered)
             Hex.style.position = 'absolute';
             Hex.style.top = '50%';
@@ -1496,8 +1498,8 @@ if (screen.orientation && screen.orientation.lock) {
                     console.error(`Unknown color: ${color}`);
                     return; // Exit if the color is unknown
             }
-            circle.style.width = '4vh';
-            circle.style.height = '4vh';
+            circle.style.width = '100%';
+            circle.style.height = '100%';
             // Position the robot within the parent square (e.g., centered)
             circle.style.position = 'absolute';
             circle.style.top = '50%';
@@ -1520,8 +1522,9 @@ if (screen.orientation && screen.orientation.lock) {
             spiral.src = 'images/Rainbow.png'; // Replace with the actual path to your robot image
             spiral.alt = 'Robot'; // Add alt text for accessibility
             // Set the size of the robot image
-            spiral.style.width = '5vh';
-            spiral.style.height = '5vh';
+            spiral.style.width = '100%';
+            spiral.style.height = '100%';
+            
             // Position the robot within the parent square (e.g., centered)
             spiral.style.position = 'absolute';
             spiral.style.top = '50%';
@@ -1640,8 +1643,8 @@ if (screen.orientation && screen.orientation.lock) {
             robot.alt = 'Robot'; // Add alt text for accessibility
 
             // Set the size of the robot image
-            robot.style.width = '5vh';
-            robot.style.height = '5vh';
+            robot.style.width = '100%';
+            robot.style.height = '100%';
 
             // Position the robot within the parent square (e.g., centered)
             robot.style.position = 'absolute';
@@ -4633,6 +4636,7 @@ if (screen.orientation && screen.orientation.lock) {
         obj.style.position = 'absolute';
         obj.style.top = '41%';
         obj.style.left = '22%';
+        obj.style.zIndex = '999';
         midObj[0] = obj;
         document.body.appendChild(obj);
     }
@@ -4791,7 +4795,8 @@ if (screen.orientation && screen.orientation.lock) {
     function resetCOLORS()
     {
         squares.forEach(square => {
-            square.style.backgroundColor = 'white';
+            square.style.backgroundColor = rgba(0,0,0,0);
+            square.style.zIndex = 100;
         });
     }
 
