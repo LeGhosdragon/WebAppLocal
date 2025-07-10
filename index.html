@@ -1282,8 +1282,6 @@ function makeMap() {
             // Position the squares based on row and column indices
             square.style.left = leftPosition;
             square.style.top = topPosition;
-            square.style.backgroundColor = "rgba(255,255,255,1)";
-            square.style.zIndex = 100;
 
             // Store the coordinate and position in the array
             tilePositions.push([row, col, leftPosition, topPosition]);
@@ -4795,8 +4793,7 @@ if (screen.orientation && screen.orientation.lock) {
     function resetCOLORS()
     {
         squares.forEach(square => {
-            square.style.backgroundColor = rgba(0,0,0,0);
-            square.style.zIndex = 100;
+            square.style.backgroundColor = "white";
         });
     }
 
